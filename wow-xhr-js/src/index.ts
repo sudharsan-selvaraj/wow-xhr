@@ -1,6 +1,6 @@
-import {XhrLog} from "./modules/XhrLog";
-
 require("xhook");
+
+import {XhrLog} from "./modules/XhrLog";
 import {XhrMock} from "./modules/XhrMock";
 import {XhookEvents} from "./types";
 import {initializeXHookListener} from "./XhookListener";
