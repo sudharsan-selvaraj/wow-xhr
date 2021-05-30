@@ -10,8 +10,16 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
+    implementation group: 'io.github.sudharsan-selvaraj', name: 'spydriver', version: '1.0.1'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.12.3'
+
+    testImplementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '4.4.3'
+
+    compileOnly 'org.projectlombok:lombok:1.18.8'
+    testCompile 'org.projectlombok:lombok:1.18.8'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.8'
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
 }
 
 test {

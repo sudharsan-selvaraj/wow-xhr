@@ -1,5 +1,3 @@
-require("xhook");
-
 import {XhrLog} from "./modules/XhrLog";
 import {XhrMock} from "./modules/XhrMock";
 import {XhookEvents} from "./types";
