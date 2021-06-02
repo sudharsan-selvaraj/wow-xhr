@@ -1,20 +1,28 @@
 import {XhrLog} from "./modules/XhrLog";
 import {XhrMock} from "./modules/XhrMock";
-import {XhookEvents} from "./types";
-import {initializeXHookListener} from "./XhookListener";
-import {XhrWait} from "./modules/XhrWait";
+import {v4 as uuidv4} from 'uuid';
+import {XhookRequest, XhookResponse} from "./types";
 
+require("./modules/xhook.js").xhook;
 
-const xhook: XhookEvents = (window as any).xhook;
+var Window: any = window;
 
-const xhrMockObj: XhrMock = new XhrMock();
-const xhrLogObj: XhrLog = new XhrLog();
-const xhrWaitObj: XhrWait = new XhrWait(xhrLogObj);
+Window.xhook.enable();
+Window.xhrMock = new XhrMock();
+Window.xhrLog = new XhrLog();
+var interceptors = [Window.xhrMock, Window.xhrLog];
 
-initializeXHookListener(xhook, [xhrMockObj, xhrLogObj]);
+Window.xhook.before(async function (request: XhookRequest, callback: () => any) {
+    request.wow_xhr_id = uuidv4();
+    for (var interceptor of interceptors) {
+        await interceptor.beforeXHR(request)
+    }
+    callback();
+})
 
-(window as any).wowXhr = {
-    mock: xhrMockObj,
-    log: xhrLogObj,
-    wait: xhrWaitObj
-}
+Window.xhook.after(async function (request: XhookRequest, response: XhookResponse, callback: () => any) {
+    for (let interceptor of interceptors) {
+        await interceptor.afterXHR(request, response)
+    }
+    callback();
+})

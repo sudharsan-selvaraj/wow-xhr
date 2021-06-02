@@ -1,0 +1,69 @@
+<!--
+Author: W3layouts
+Author URL: https://w3layouts.com/entrar-shadow-flat-form-template/
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Posters Galore Login</title>
+    <meta charset="utf-8">
+    <link href="/angular/login.css" rel='stylesheet' type='text/css' />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Open+Sans:600italic,400,300,600,700' type='text/css'>
+    <script src="../../node_modules/jquery/dist/jquery.min.js" type="text/javascript"></script>
+    <style type="text/css">
+        .hide{
+            display: none;
+        }
+    </style>
+    <script type="application/x-javascript">
+        function login(e) {
+            $(".loading").toggleClass("hide");
+            $.ajax({
+                type: 'POST',
+                url: location.origin + "/api/login",
+                data: JSON.stringify({
+                    email: $("#username").val(),
+                    password: $("#password").val(),
+                }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(resultData) {
+                    if(resultData.error) {
+                        $(".invalid-credentials").toggleClass("hide")
+                    } else {
+                        $(".login-success").toggleClass("hide")
+                    }
+                    $(".loading").toggleClass("hide");
+                },
+                error: function (e) {
+                    $(".invalid-credentials").toggleClass("hide")
+                    $(".loading").toggleClass("hide");
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<div class="main">
+    <div class="login-form">
+        <h1>Login</h1>
+        <div class="head">
+            <img src="user.png" alt=""/>
+        </div>
+        <form>
+            <input type="text" class="text" id="username">
+            <input type="password" id="password"/>
+            <div class="submit">
+                <input type="button" value="Log In" onclick="login()">
+            </div>
+            <p class="hide invalid-credentials">Invalid username/password</p>
+            <p class="hide loading">loading..</p>
+            <p class="hide login-success">Successfully loggedin</p>
+        </form>
+    </div>
+</div>
+</body>
+</html>

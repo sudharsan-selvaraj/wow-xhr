@@ -47,6 +47,7 @@ interface XhrInterceptor {
 
 interface WowXhrMockRequest {
     headers: { [key: string]: string; },
+    queryParams: { [key: string]: string; },
     body: string
 }
 
