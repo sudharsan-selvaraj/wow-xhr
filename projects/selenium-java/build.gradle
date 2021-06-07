@@ -1,13 +1,74 @@
 plugins {
-    id 'java'
     id 'java-library'
+    id 'maven-publish'
+    id 'signing'
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
+group 'io.github.sudharsan-selvaraj'
+version '1.0.0'
 
 repositories {
     mavenCentral()
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+
+signing {
+    sign publishing.publications
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = "io.github.sudharsan-selvaraj"
+            artifactId = "wow-xhr"
+            version = "1.0.0"
+
+            from components.java
+            pom {
+                name = 'wow-xhr'
+                description = 'Simple library to manipulate HTTP requests/responses and capture network logs made by the browser using selenium tests without using any proxies'
+                url = 'https://github.com/sudharsan-selvaraj/spydriver'
+
+                developers {
+                    developer {
+                        name = 'Sudharsan Selvaraj'
+                        email = 'sudharsanselvaraj.c@gmail.com'
+                        url = 'https://github.com/sudharsan-selvaraj'
+                        id = 'sudharsan-selvaraj'
+                    }
+                }
+                licenses {
+                    license {
+                        name = 'Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        distribution = 'repo'
+                    }
+                }
+                scm {
+                    url = 'https://github.com/sudharsan-selvaraj/wow-xhr'
+                    connection = 'scm:git:ssh://git@github.com:sudharsan-selvaraj/wow-xhr.git'
+                    developerConnection = 'scm:git:ssh://git@github.com:sudharsan-selvaraj/wow-xhr.git'
+                    tag = 'HEAD'
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username project.findProperty("sonatypeUser")?.toString() ?: System.getenv("SONATYPE_USER")
+                password project.findProperty("sonatypePassword")?.toString() ?: System.getenv("SONATYPE_PASSWORD")
+            }
+            def releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+            def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+        }
+    }
 }
 
 dependencies {
