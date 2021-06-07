@@ -34,6 +34,30 @@ read on.
 implementation group: 'io.github.sudharsan-selvaraj', name: 'wow-xhr', version: '1.0.0'
 ```
 
+Also while downloading selenium, make sure to exclude `net.bytebuddy:byte-buddy` library by using
+
+### Maven
+```xml
+<dependency>
+   <groupId>org.seleniumhq.selenium</groupId>
+   <artifactId>selenium-java</artifactId>
+   <version>3.141.59</version>
+   <exclusions>
+      <exclusion>
+         <groupId>net.bytebuddy</groupId>
+         <artifactId>byte-buddy</artifactId>
+      </exclusion>
+   </exclusions>
+</dependency>
+```
+
+### Gradle
+```groovy
+implementation (group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59') {
+   exclude group: 'net.bytebuddy', module: 'byte-buddy'
+ }
+```
+
 ## Features:
 
 1. Intercept any HTTP request and modify the header, query param, body of the request.
