@@ -73,7 +73,7 @@ wowXHR.mock().add(
 );
 ```
 
-Above mock will update the `Authorization` headers with `invalid-auth-token` for all HTTP request that has `/api` regular expression in its url.
+Above mock will update the `Authorization` header with `invalid-auth-token` for all HTTP request that has `/api` regular expression in its url.
 
 #### Add or update query param
 ```java 
@@ -117,7 +117,7 @@ import static io.github.sudharsan_selvaraj.wowxhr.mock.Mockable.*;
 driver.get("http://localhost:3000");
 
 wowXHR.mock().add(
-        whenGET("/api/login")
+        whenPOST("/api/login")
         .respond(
             mockResponse()
             .withHeader("Set-Cookie", "refresh-token=invalid-refresh-token; expires=Mon, 17-Jul-2021 16:06:00 GMT; Max-Age=31449600; Path=/; secure")
@@ -133,7 +133,7 @@ import static io.github.sudharsan_selvaraj.wowxhr.mock.Mockable.*;
 driver.get("http://localhost:3000");
 
 wowXHR.mock().add(
-        whenGET("/api/login")
+        whenPOST("/api/login")
         .respond(
             mockResponse()
             .withBody("{\"error\": \"true\" ,\"message\" : \"User account is locked\"}")
@@ -149,7 +149,7 @@ import static io.github.sudharsan_selvaraj.wowxhr.mock.Mockable.*;
 driver.get("http://localhost:3000");
 
 wowXHR.mock().add(
-        whenGET("/api/login")
+        whenPOST("/api/login")
         .respond(
             mockResponse()
             .withStatus(500) //internal server error
@@ -165,7 +165,7 @@ import static io.github.sudharsan_selvaraj.wowxhr.mock.Mockable.*;
 driver.get("http://localhost:3000");
 
 wowXHR.mock().add(
-        whenGET("/api/login")
+        whenPOST("/api/login")
         .respond(
             mockResponse()
             .withDelay(10) //in seconds
