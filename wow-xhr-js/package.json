@@ -1,10 +1,9 @@
 {
-  "name": "wow-xhr",
+  "name": "wow-xhr-js",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Lightweight utility to mock xhr requests in browser",
+  "main": "dist/bundle.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
     "build:watch": "webpack --watch"
   },
@@ -12,8 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "uuid": "^8.3.2",
-    "xhook": "^1.4.9"
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "expose-loader": "^3.0.0",
